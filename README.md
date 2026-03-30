@@ -1,6 +1,6 @@
-# Flutter Services
+# **Flutter Services**
 
-Projeleriniz için özelleştirilebilir, kullanıma hazır servis katmanı. [ Son güncelleme: 30.03.2026 ]
+Flutter projeleri için, içerisinde API, Firebase, medya araçları, harita yardımcıları, bildirim sistemleri, depolama sistemleri ve QR gibi servisleri, özelleştirilebilir ve kullanıma hazır bir biçimde sunan bir servis katmanı.
 
 ⚠️ **Önemli Not!** <br>
 Bu yapı bir pub.dev paketi değildir. Flutter projelerinde tekrar eden servis katmanlarını (API, Firebase, vb.) merkezi ve taşınabilir bir şekilde yönetmek amacıyla oluşturulmuştur.
