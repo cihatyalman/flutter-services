@@ -1,12 +1,20 @@
-# Flutter Core
+# Flutter Services
 
-Projelerinizde kullanabileceğiniz çekirdek katman. [ Update: 24.10.2025 ]
+Projeleriniz için özelleştirilebilir, kullanıma hazır servis katmanı. [ Son güncelleme: 30.03.2026 ]
 
-#
+⚠️ **Önemli Not!** <br>
+Bu yapı bir pub.dev paketi değildir. Flutter projelerinde tekrar eden servis katmanlarını (API, Firebase, vb.) merkezi ve taşınabilir bir şekilde yönetmek amacıyla oluşturulmuştur.
 
-"core" klasörünü projenizin lib dizinine kopyalayarak kullanabilirsiniz. Projenizde kullanılmayacak klasörleri silebilirsiniz.
+🧩 **Nasıl Kullanılır?** <br>
+Bu yapı tamamen esnek ve modülerdir. Doğrudan projelere entegre edilmek üzere tasarlanmıştır. İhtiyacınız olan servisleri seçerek doğrudan projenize ekleyebilirsiniz:
+<br> - İlgili klasörü veya dosyayı kopyalayın
+<br> - Projenizde uygun dizine yerleştirin (services/ gibi)
+<br> - Gerekirse kendi ihtiyaçlarınıza göre özelleştirin
 
-NOT: Gerekli kütüphaneler yüklü değilse hata alabilirsiniz.
+⚠️ **Dikkat Edilmesi Gerekenler**
+<br> - Bazı servisler harici paketlere bağımlı olabilir (örn: dio, firebase)
+<br> - Gerekli bağımlılıkları projenize eklemezseniz hata alabilirsiniz
+<br> - Servisleri kullanmadan önce bağımlılıkları kontrol etmeniz önerilir
 
 #
 
@@ -18,17 +26,15 @@ NOT: Gerekli kütüphaneler yüklü değilse hata alabilirsiniz.
       <ul>
         <li>API Service</li>
         <ul>
-          <li>http</li>
           <li>dio</li>
         </ul>
         <li>Firebase Service</li>
         <ul>
           <li>firebase_core</li>
+          <li>firebase_analytics</li>
           <li>firebase_database</li>
           <li>cloud_firestore</li>
           <li>firebase_auth</li>
-          <li>firebase_analytics</li>
-          <li>firebase_dynamic_links</li>
           <li>google_sign_in</li>
         </ul>
         <li>Media Service</li>
@@ -39,38 +45,37 @@ NOT: Gerekli kütüphaneler yüklü değilse hata alabilirsiniz.
           <li>file_picker</li>
           <li>video_player</li>
           <li>chewie</li>
-          <li>flutter_sound_record</li>
+          <li>audio_waveforms</li>
+          <li>record</li>
           <li>just_audio</li>
         </ul>
+      </ul>
+    </td>
+    <td>
+      <ul>
         <li>Map Service</li>
         <ul>
           <li>google_maps_flutter</li>
           <li>geolocator</li>
           <li>geocoding</li>
         </ul>
-      </ul>
-    </td>
-    <td>
-      <ul>
         <li>Notification Service</li>
         <ul>
+          <li>onesignal_flutter</li>
           <li>awesome_notifications</li>
           <li>firebase_messaging</li>
-          <li>onesignal_flutter(^3.5.1)</li>
         </ul>
         <li>Storage Service</li>
         <ul>
           <li>hive</li>
           <li>hive_flutter</li>
           <li>sqflite</li>
+          <li>shared_preferences</li>
         </ul>
         <li>Other</li>
         <ul>
           <li>qr_flutter</li>
           <li>mobile_scanner</li>
-          <li>flutter_downloader</li>
-          <li>crypto</li>
-          <li>shared_preferences</li>
         </ul>
         <li>Base</li>
         <ul>
@@ -84,64 +89,92 @@ NOT: Gerekli kütüphaneler yüklü değilse hata alabilirsiniz.
 
 #
 
-### Araçlar ( [utils](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/utils) ):
+### Araç Seti ( [toolkit](flutter_services/lib/services/toolkit) ):
 
-- #### [extensions](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/utils/extensions.dart): Bazı tür dönüşümleri yapmanıza yardımcı olur.
-- #### [mixins](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/utils/mixins): Sınıflara ek özellikler eklememizi sağlar.
+- [extensions](flutter_services/lib/services/toolkit/extensions.dart): Mevcut sınıflara (String, DateTime vb.) yeni yetenekler kazandırarak kod yazımını kısaltır.
 
-#
-
-### API Servisi ( [api_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/api_service) ):
-
-WebAPI üzerinden veri alışverişi yapmak için kullanabilirsiniz.
+- [mixins](flutter_services/lib/services/toolkit/mixins): Çoklu kalıtım desteğiyle sınıflara ortak fonksiyonel özellikler ve davranışlar enjekte eder.
 
 #
 
-### Firebase Servisleri ( [firebase_services](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services) ):
+### API Servisi ( [api](flutter_services/lib/services/api) ):
 
-- #### [Realtime Database](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services/firebase_database_service.dart)
-- #### [Firestore](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services/firebase_firestore_service.dart)
-- #### [Firebase Auth](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services/firebase_auth_service.dart)
-- #### [Firebase Analytics](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services/firebase_analytics_service.dart)
-- #### [Firebase Dynamic Link](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services/firebase_dynamic_link_service.dart)
-- #### [Google Auth](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/firebase_services/google_auth_service.dart)
+Uzak sunucularla veri alışverişini ve hata yönetimini merkezi bir noktadan yönetir.
 
 #
 
-### Medya Servisleri ( [media_services](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/media_services) ):
+### Firebase Servisleri ( [firebase](flutter_services/lib/services/firebase) ):
 
-- #### [camera_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/media_services/camera_service.dart): Kamera veya galeriyi kullanmak için kullanabilirsiniz.
-- #### [file_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/media_services/file_service.dart): Telefondan resim, pdf, dosya vs. almak için kullanabilirsiniz.
-- #### [video_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/media_services/video_service.dart): Videolarınızı oynatmak için kullanabilirsiniz.
-- #### [audio_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/media_services/audio_service.dart): Ses kaydetmek veya oynatmak için kullanabilirsiniz.
+Gerekli yapılandırma dosyalarını eklemeyi unutmayın!
 
-#
+- [Analytics](flutter_services/lib/services/firebase/analytics.dart): Kullanıcı davranışlarını analiz ederek uygulamanın performansını ve etkileşimini ölçer.
 
-### Harita Servisleri ( [map_services](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/map_services) ):
+- [Realtime Database](flutter_services/lib/services/firebase/database.dart): Verilerin tüm kullanıcılar arasında anlık ve canlı olarak senkronize edilmesini sağlar.
 
-- #### [map_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/map_services/map_service.dart)
-- #### [location_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/map_services/location_service.dart)
+- [Firestore](flutter_services/lib/services/firebase/firestore.dart): Esnek ve ölçeklenebilir doküman tabanlı veritabanı çözümü sunar.
 
-#
+- [Firebase Auth](flutter_services/lib/services/firebase/auth.dart): Kullanıcı kayıt ve giriş işlemlerini güvenli bir altyapı üzerinden gerçekleştirir.
 
-### Bildirim Servisleri ( [notification_services](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/notification_services) ):
-
-- #### [awesome_notification_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/notification_services/awesome_notification_service.dart)
-- #### [firebase_push_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/notification_services/firebase_push_service.dart)
-- #### [onesignal_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/notification_services/onesignal_service.dart)
+- [Google Auth](flutter_services/lib/services/firebase/auth_google.dart): Google hesaplarıyla hızlı ve tek tıkla güvenli giriş imkanı sağlar.
 
 #
 
-### Depolama Servisleri ( [storage_services](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/storage_services) ):
+### Medya Servisleri ( [media](flutter_services/lib/services/media) ):
 
-- #### [cache_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/storage_services/cache_service.dart): Verilerinizi cihazın ön belleğinde saklamak için kullanabilirsiniz.
-- #### [local_database_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/storage_services/local_database_service.dart): Verilerinizi local bir veritabanında yönetmek istiyorsanız bu servisi kullanabilirsiniz.
+- [camera](flutter_services/lib/services/media/camera.dart): Cihazın kamerasına veya fotoğraf galerisine erişerek görsel veri almanızı sağlar.
+
+- [video](flutter_services/lib/services/media/video.dart): Yerel veya uzak sunucudaki video dosyalarını oynatmak ve kontrol etmek için kullanılır.
+
+- [file](flutter_services/lib/services/media/file.dart): Cihaz depolama alanındaki doküman, PDF ve diğer dosya formatlarını yönetmenize yardımcı olur.
+
+- [audio](flutter_services/lib/services/media/audio.dart): Uygulama içinde ses kaydı yapma veya ses dosyalarını yüksek performansla oynatma imkanı verir.
+
+#
+
+### Harita Servisleri ( [map](flutter_services/lib/services/map) ):
+
+- [map](flutter_services/lib/services/map/map.dart): İnteraktif harita gösterimi ve harita üzerindeki işaretleme (marker) işlemlerini kolaylaştırır.
+
+- [location](flutter_services/lib/services/map/location.dart): Kullanıcının anlık konum verilerini yüksek hassasiyetle takip etmeyi ve yönetmeyi sağlar.
 
 #
 
-### Diğer Servisler ( [other_services](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/other_services) ):
+### Bildirim Servisleri ( [notification](flutter_services/lib/services/notification) ):
 
-- #### [qr_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/other_services/qr_service.dart): QR oluşturmak veya okumak için kullanabilirsiniz.
-- #### [download_service](https://github.com/cihatyalman/flutter_core/tree/master/lib/core/other_services/download_service.dart): Medya dosyalarınızı cihazınıza indirmek için kullanabilirsiniz.
+- [onesignal](flutter_services/lib/services/notification/onesignal.dart): OneSignal altyapısını kullanarak uzak sunucu bildirimlerini alır ve işler.
+
+- [local](flutter_services/lib/services/notification/local.dart): Yerel bildirimleri özelleştirilebilir tasarımlar ve gelişmiş zamanlama ile yönetir.
+
+- [firebase](flutter_services/lib/services/notification/firebase.dart): Firebase Cloud Messaging (FCM) üzerinden uzak sunucu bildirimlerini alır ve işler.
 
 #
+
+### Depolama Servisleri ( [storage](flutter_services/lib/services/storage) ):
+
+- [hive](flutter_services/lib/services/storage/hive.dart): Küçük boyutlu ayarların veya verilerin cihaz belleğinde hızlı erişilebilir şekilde tutulmasını sağlar.
+
+- [sqflite](flutter_services/lib/services/storage/sqflite.dart): İlişkisel veya doküman tabanlı verilerin yerel bir veritabanında (SQLite vb.) güvenle saklanmasını yönetir.
+
+#
+
+### Diğer Servisler ( [other](flutter_services/lib/services/other) ):
+
+- [qr](flutter_services/lib/services/other/qr.dart): Dinamik QR kodları oluşturmanıza veya kamera aracılığıyla mevcut kodları taramanıza olanak tanır.
+
+<br>
+
+# Demo İçerikleri
+
+Aşağıda bazı servislerin kullanım örnekleri mevcuttur. İncelemek için [screens](flutter_services/lib/screens) klasörünü ziyaret edebilirsiniz.
+
+<p>
+  <img src="assets/storage.webp" width="100" alt="Local Depolama">
+  <img src="assets/qr.webp" width="100" alt="QR">
+  <img src="assets/location.webp" width="100" alt="Konum">
+  <img src="assets/media-1.webp" width="100" alt="Medya">
+  <img src="assets/media-2.webp" width="100" alt="Medya">
+  <img src="assets/firebase.webp" width="100" alt="Firebase">
+  <img src="assets/noti-1.webp" width="100" alt="Local Bildirim">
+  <img src="assets/noti-2.webp" width="100" alt="Local Bildirim">
+  <img src="assets/noti-3.webp" width="100" alt="Local Bildirim">
+</p>
