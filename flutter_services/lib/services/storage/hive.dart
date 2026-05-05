@@ -44,7 +44,7 @@ class HiveService {
   dynamic get(HiveKeys key, [dynamic defaultValue]) =>
       _box.get(key.title, defaultValue: defaultValue);
 
-  dynamic put(HiveKeys key, dynamic value) => _box.put(key.title, value);
+  Future<void> put(HiveKeys key, dynamic value) => _box.put(key.title, value);
 
-  dynamic delete(HiveKeys key) => _box.delete(key.title);
+  Future<void> delete(HiveKeys key) => _box.delete(key.title);
 }

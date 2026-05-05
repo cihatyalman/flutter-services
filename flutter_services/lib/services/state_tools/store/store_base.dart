@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class StoreBase<T> extends ChangeNotifier {
+abstract class StoreBase<T> with ChangeNotifier {
   late ValueNotifier<T> _dataListener;
   StoreBase(T initialValue) {
     _dataListener = ValueNotifier<T>(initialValue);
@@ -22,6 +22,8 @@ abstract class StoreBase<T> extends ChangeNotifier {
 
   T get data => _dataListener.value;
   set data(T value) => _dataListener.value = value;
+
+  bool isChanged = false;
 
   Widget listen(Widget Function(T data, bool isLoading) customWidget) =>
       ValueListenableBuilder<T>(

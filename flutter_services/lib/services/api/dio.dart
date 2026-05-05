@@ -28,7 +28,6 @@ class DioService {
   Future get({
     required String path,
     Map<String, dynamic>? params,
-    Map<String, String>? headers,
     CancelToken? cancelToken,
   }) async {
     try {
@@ -36,7 +35,7 @@ class DioService {
       var response = await dio.get(
         path,
         queryParameters: params,
-        options: Options(headers: headers),
+        options: Options(headers: (headers?.isEmpty ?? true) ? null : headers),
         cancelToken: cancelToken ?? _cancelToken,
       );
       return jsonDecode(response.toString());
@@ -50,7 +49,6 @@ class DioService {
     required String path,
     required Map<String, dynamic> json,
     Map<String, dynamic>? params,
-    Map<String, String>? headers,
     CancelToken? cancelToken,
   }) async {
     try {
@@ -59,7 +57,7 @@ class DioService {
         path,
         data: jsonEncode(json),
         queryParameters: params,
-        options: Options(headers: headers),
+        options: Options(headers: (headers?.isEmpty ?? true) ? null : headers),
         cancelToken: cancelToken ?? _cancelToken,
       );
       return jsonDecode(response.toString());
@@ -73,7 +71,6 @@ class DioService {
     required String path,
     required Map<String, dynamic> json,
     Map<String, dynamic>? params,
-    Map<String, String>? headers,
     CancelToken? cancelToken,
   }) async {
     try {
@@ -82,7 +79,7 @@ class DioService {
         path,
         data: jsonEncode(json),
         queryParameters: params,
-        options: Options(headers: headers),
+        options: Options(headers: (headers?.isEmpty ?? true) ? null : headers),
         cancelToken: cancelToken ?? _cancelToken,
       );
       return jsonDecode(response.toString());
@@ -96,7 +93,6 @@ class DioService {
     required String path,
     required Map<String, dynamic> json,
     Map<String, dynamic>? params,
-    Map<String, String>? headers,
     CancelToken? cancelToken,
   }) async {
     try {
@@ -105,7 +101,7 @@ class DioService {
         path,
         data: jsonEncode(json),
         queryParameters: params,
-        options: Options(headers: headers),
+        options: Options(headers: (headers?.isEmpty ?? true) ? null : headers),
         cancelToken: cancelToken ?? _cancelToken,
       );
       return jsonDecode(response.toString());
@@ -119,7 +115,6 @@ class DioService {
     required String path,
     required Map<String, dynamic> json,
     Map<String, dynamic>? params,
-    Map<String, String>? headers,
     CancelToken? cancelToken,
   }) async {
     try {
@@ -128,7 +123,7 @@ class DioService {
         path,
         data: jsonEncode(json),
         queryParameters: params,
-        options: Options(headers: headers),
+        options: Options(headers: (headers?.isEmpty ?? true) ? null : headers),
         cancelToken: cancelToken ?? _cancelToken,
       );
       return jsonDecode(response.toString());
@@ -141,14 +136,13 @@ class DioService {
   Future? postFormData({
     required String path,
     required Map<String, dynamic> json,
-    Map<String, String>? headers,
     CancelToken? cancelToken,
   }) async {
     try {
       _cancelToken = CancelToken();
       var response = await dio.post(
         path,
-        options: Options(headers: headers),
+        options: Options(headers: (headers?.isEmpty ?? true) ? null : headers),
         data: FormData.fromMap(json),
         cancelToken: cancelToken ?? _cancelToken,
       );
